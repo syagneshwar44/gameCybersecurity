@@ -14,6 +14,8 @@ namespace StarterAssets
 #endif
     public class ThirdPersonController : MonoBehaviour
     {
+        public static ThirdPersonController Instance;
+
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 2.0f;
@@ -125,6 +127,11 @@ namespace StarterAssets
 
         private void Awake()
         {
+            if (Instance == null)
+                Instance = this;
+            else
+                Destroy(this.gameObject);
+
             // get a reference to our main camera
             if (_mainCamera == null)
             {

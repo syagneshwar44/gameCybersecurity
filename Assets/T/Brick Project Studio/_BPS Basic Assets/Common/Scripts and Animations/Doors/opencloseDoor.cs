@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using UnityEngine.InputSystem; // Import for Player Input
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro; 
+using TMPro;
+using StarterAssets;
 
 
 namespace SojaExiles
@@ -25,9 +26,12 @@ namespace SojaExiles
 
         void Start()
         {
-    open = false;
-    if (quizPanel != null)
-        quizPanel.SetActive(false); // Hide the quiz at the start
+            Player = ThirdPersonController.Instance.transform;
+            playerInput = Player.GetComponent<PlayerInput>();
+
+            open = false;
+            if (quizPanel != null)
+                quizPanel.SetActive(false); // Hide the quiz at the start
         }
 
         void OnMouseOver()
@@ -53,23 +57,26 @@ namespace SojaExiles
         }
 
        void ShowQuiz()
-{
-    quizPanel.SetActive(true);
-            playerInput.enabled = false; // Disable player movement
-    questionText.text = "What is phishing?";
+        {
+            quizPanel.SetActive(true);
+                    playerInput.enabled = false; // Disable player movement
+            questionText.text = "What is phishing?";
 
-    answerButtons[0].GetComponentInChildren<TMP_Text>().text = "A. A cyber attack";
-    answerButtons[1].GetComponentInChildren<TMP_Text>().text = "B. A fishing method";
-    answerButtons[2].GetComponentInChildren<TMP_Text>().text = "C. A computer brand";
+            answerButtons[0].GetComponentInChildren<TMP_Text>().text = "A. A cyber attack";
+            answerButtons[1].GetComponentInChildren<TMP_Text>().text = "B. A fishing method";
+            answerButtons[2].GetComponentInChildren<TMP_Text>().text = "C. A computer brand";
+            answerButtons[2].GetComponentInChildren<TMP_Text>().text = "D. Blah blah";
 
-    answerButtons[0].onClick.RemoveAllListeners();
-    answerButtons[1].onClick.RemoveAllListeners();
-    answerButtons[2].onClick.RemoveAllListeners();
+            answerButtons[0].onClick.RemoveAllListeners();
+            answerButtons[1].onClick.RemoveAllListeners();
+            answerButtons[2].onClick.RemoveAllListeners();
+            answerButtons[2].onClick.RemoveAllListeners();
 
-    answerButtons[0].onClick.AddListener(() => CheckAnswer("A"));
-    answerButtons[1].onClick.AddListener(() => CheckAnswer("B"));
-    answerButtons[2].onClick.AddListener(() => CheckAnswer("C"));
-}
+            answerButtons[0].onClick.AddListener(() => CheckAnswer("A"));
+            answerButtons[1].onClick.AddListener(() => CheckAnswer("B"));
+            answerButtons[2].onClick.AddListener(() => CheckAnswer("C"));
+            answerButtons[2].onClick.AddListener(() => CheckAnswer("D"));
+        }
 
 
         void CheckAnswer(string selectedAnswer)
